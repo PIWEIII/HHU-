@@ -1,0 +1,113 @@
+     CODE SEGMENT
+
+ASSUME CS:CODE
+
+ORG 1000H
+START: JMP L1
+
+DATA DB 3FH,06H,5BH,4FH,66H,6DH,7DH,07H,7FH,6FH,77H,7CH,39H,5EH,79H,71H
+
+DATA1 DB ?
+
+DATA2 DB ?
+
+DATA3 DB ?
+
+L1:   MOV DX,000H
+
+MOV AL, 01H
+
+OUT DX,AL
+
+MOV CX,200
+
+LOOP $
+
+MOV DX,000h
+
+IN AL,DX
+
+MOV DATA3,AL
+
+
+
+    MOV AH,AL
+
+    AND AL,0FH
+
+    MOV DATA1,AL
+
+    MOV CL,4
+
+    SHR AH,CL
+
+    MOV DATA2,AH
+
+    LEA BX,DATA
+
+    MOV AH,0
+
+    MOV AL,DATA1
+
+    ADD BX,AX
+
+    MOV AL,[BX]
+
+    MOV DATA1,AL
+
+
+
+    LEA BX,DATA
+
+    MOV AH,0
+
+    MOV AL,DATA2
+
+    ADD BX,AX
+
+    MOV AL,[BX]
+
+    MOV DATA2,AL
+
+
+
+    MOV DX,00DFH
+    MOV AL,90H
+
+    OUT DX,AL
+
+    MOV DX,00DEH
+
+    MOV AL,DATA1
+
+    OUT DX,AL
+
+
+
+    MOV DX,00DFH
+
+    MOV AL,91H
+
+    OUT DX,AL
+
+    MOV DX,00DEH
+
+    MOV AL,DATA2
+
+    OUT DX,AL
+
+    MOV DX,070H
+
+    MOV AL,DATA3
+
+    OUT DX,AL
+
+    JMP L1
+
+
+
+
+
+ CODE ENDS
+
+ END START
